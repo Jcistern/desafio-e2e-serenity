@@ -5,6 +5,7 @@ import java.io.InputStream;
 
 public class TestData {
 
+    private String url;
     private String usuario;
     private String contrasena;
     private String nombre;
@@ -23,6 +24,7 @@ public class TestData {
         }
     }
 
+    public String getUrl() {return url; }
     public String getUsuario() { return usuario; }
     public String getContrasena() { return contrasena; }
     public String getNombre() { return nombre; }

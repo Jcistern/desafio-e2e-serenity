@@ -3,7 +3,14 @@ package com.bancaecuador.steps;
 import com.bancaecuador.actions.CompraActions;
 import com.bancaecuador.data.TestData;
 import io.cucumber.java.en.*;
+import io.cucumber.java.Before;
 import net.serenitybdd.annotations.Steps;
+import net.serenitybdd.screenplay.actors.*;
+import net.serenitybdd.screenplay.Actor;
+import com.bancaecuador.tasks.Login;
+import net.serenitybdd.annotations.Managed;
+import org.openqa.selenium.WebDriver;
+import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 
 public class CompraSteps {
     @Steps
@@ -11,17 +18,22 @@ public class CompraSteps {
 
     TestData datos = TestData.cargar();
 
-    @Given("el usuario está en la página de login")
-    public void el_usuario_está_en_la_página_de_login() {
-        acciones.abrirPaginaLogin();
+    @Managed
+    WebDriver driver;
+
+    @Before
+    public void prepararEscenario() {
+        OnStage.setTheStage(new OnlineCast());
+        OnStage.theActorCalled("Juan").can(BrowseTheWeb.with(driver));
     }
 
-    @When("ingresa las credenciales desde el archivo de datos")
-    public void ingresa_las_credenciales_desde_el_archivo_de_datos() {
-        acciones.ingresarCredenciales(datos.getUsuario(), datos.getContrasena());
+    @Given("el usuario inicia sesión en SauceDemo")
+    public void el_usuario_inicia_sesion_en_SauceDemo() {
+        Actor juan = OnStage.theActorCalled("Juan");
+        juan.attemptsTo(Login.con(datos.getUrl(), datos.getUsuario(),datos.getContrasena()));
     }
 
-    @And("ordena los productos por precio de menor a mayor")
+    @When("ordena los productos por precio de menor a mayor")
     public void ordena_los_productos_por_precio_de_menor_a_mayor() {
         acciones.ordenarPrecioAscendente();
     }

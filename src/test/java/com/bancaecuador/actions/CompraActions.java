@@ -32,6 +32,21 @@ public class CompraActions extends UIInteractionSteps {
         find(By.cssSelector(".inventory_list .inventory_item:first-child button")).click();
     }
 
+    public void agregarSegundoProducto() {
+        var buttons = findAll(By.cssSelector(".inventory_item button"));
+        if (buttons.size() >= 2) {
+            buttons.get(1).click();
+        } else {
+            throw new RuntimeException("No hay al menos 2 productos seleccionables");
+        }
+    }
+
+    public void verificarProductosEnCarrito(int cantidad) {
+        String cartBadge = find(By.className("shopping_cart_badge")).getText();
+        int productosEnCarrito = Integer.parseInt(cartBadge);
+        assertThat(productosEnCarrito).as("Número de productos en carrito").isEqualTo(cantidad);
+    }
+
     public void irAlCarrito() {
         find(By.cssSelector("[data-test='shopping-cart-link']")).click();
         waitFor(ExpectedConditions.urlContains("cart"));
@@ -40,10 +55,16 @@ public class CompraActions extends UIInteractionSteps {
     public void confirmarProducto() {
         String titulo = find(By.className("title")).getText();
         assertThat(titulo).isEqualTo("Your Cart");
+        var items = findAll(By.className("cart_item"));
+        assertThat(items.size())
+                .as("Número de items en el carrito visual")
+                .isGreaterThanOrEqualTo(1);
         find(By.id("checkout")).click();
     }
 
     public void completarCheckout(String nombre, String apellido, String postal) {
+        waitFor(ExpectedConditions.presenceOfElementLocated(By.id("first-name")));
+
         find(By.id("first-name")).sendKeys(nombre);
         find(By.id("last-name")).sendKeys(apellido);
         find(By.id("postal-code")).sendKeys(postal);

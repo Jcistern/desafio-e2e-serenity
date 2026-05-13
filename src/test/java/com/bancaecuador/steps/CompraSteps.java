@@ -27,6 +27,7 @@ public class CompraSteps {
         OnStage.theActorCalled("Juan").can(BrowseTheWeb.with(driver));
     }
 
+    // ================= BACKGROUND =================
     @Given("el usuario inicia sesión en SauceDemo")
     public void el_usuario_inicia_sesion_en_SauceDemo() {
         Actor juan = OnStage.theActorCalled("Juan");
@@ -38,13 +39,15 @@ public class CompraSteps {
         acciones.ordenarPrecioAscendente();
     }
 
+    // ================= STEP COMPARTIDOS =================
     @And("agrega el primer producto al carrito")
     public void agrega_el_primer_producto_al_carrito() {
         acciones.agregarPrimerProducto();
     }
 
     @And("procede al carrito y confirma el producto")
-    public void procede_al_carrito_y_confirma_el_producto() {
+    @And("procede al carrito y confirma los productos")
+    public void procede_al_carrito_y_confirma_los_productos() {
         acciones.irAlCarrito();
         acciones.confirmarProducto();
     }
@@ -54,6 +57,23 @@ public class CompraSteps {
         acciones.completarCheckout(datos.getNombre(), datos.getApellido(), datos.getCodigoPostal());
     }
 
+    // ================= STEP SOLO PARA SCENARIO OUTLINE =================
+    @And("agrega el segundo producto al carrito")
+    public void agrega_el_segundo_producto_al_carrito() {
+        acciones.agregarSegundoProducto();
+    }
+
+    @And("verifica que hay {int} productos en el carrito")
+    public void verifica_que_hay_2_productos_en_el_carrito(int cantidad) {
+        acciones.verificarProductosEnCarrito(cantidad);
+    }
+
+    @And("completa el checkout con nombre {string}, apellido {string}, postal {string}")
+    public void completa_el_checkout_con_datos_parametrizados(String nombre, String apellido, String postal) {
+        acciones.completarCheckout(nombre, apellido, postal);
+    }
+
+    // ================= ASSERTION FINAL =================
     @Then("debería ver el mensaje {string}")
     public void verifica_mensaje(String mensaje) {
         acciones.verificarMensaje(mensaje);

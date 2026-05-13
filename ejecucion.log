@@ -1,0 +1,118 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.bancaecuador:desafio-e2e >--------------------
+[INFO] Building desafio-e2e 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ desafio-e2e ---
+[INFO] Deleting /Users/juancisterna/Documents/e2e-serenity/desafio-e2e/target
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ desafio-e2e ---
+[INFO] skip non existing resourceDirectory /Users/juancisterna/Documents/e2e-serenity/desafio-e2e/src/main/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ desafio-e2e ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ desafio-e2e ---
+[INFO] Copying 3 resources from src/test/resources to target/test-classes
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ desafio-e2e ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 6 source files with javac [debug target 17] to target/test-classes
+[WARNING] system modules path not set in conjunction with -source 17
+[INFO] 
+[INFO] --- surefire:3.2.2:test (default-test) @ desafio-e2e ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junit4.JUnit4Provider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.bancaecuador.runners.TestRunners
+
+@compra-saucedemo-simple
+Scenario: El usuario realiza una compra exitosa de principio a fin # src/test/resources/features/e2e.feature:8
+  Given el usuario inicia sesión en SauceDemo                      # com.bancaecuador.steps.CompraSteps.el_usuario_inicia_sesion_en_SauceDemo()
+  When ordena los productos por precio de menor a mayor            # com.bancaecuador.steps.CompraSteps.ordena_los_productos_por_precio_de_menor_a_mayor()
+  And agrega el primer producto al carrito                         # com.bancaecuador.steps.CompraSteps.agrega_el_primer_producto_al_carrito()
+  And procede al carrito y confirma el producto                    # com.bancaecuador.steps.CompraSteps.procede_al_carrito_y_confirma_los_productos()
+  And completa el checkout con los datos del archivo               # com.bancaecuador.steps.CompraSteps.completa_el_checkout_con_los_datos_del_archivo()
+  Then debería ver el mensaje "Thank you for your order!"          # com.bancaecuador.steps.CompraSteps.verifica_mensaje(java.lang.String)
+
+@compra-saucedemo-outline
+Scenario Outline: El usuario realiza una compra exitosa con diferentes datos        # src/test/resources/features/e2e.feature:25
+  Given el usuario inicia sesión en SauceDemo                                       # com.bancaecuador.steps.CompraSteps.el_usuario_inicia_sesion_en_SauceDemo()
+  When ordena los productos por precio de menor a mayor                             # com.bancaecuador.steps.CompraSteps.ordena_los_productos_por_precio_de_menor_a_mayor()
+  And agrega el primer producto al carrito                                          # com.bancaecuador.steps.CompraSteps.agrega_el_primer_producto_al_carrito()
+  And agrega el segundo producto al carrito                                         # com.bancaecuador.steps.CompraSteps.agrega_el_segundo_producto_al_carrito()
+  And verifica que hay 2 productos en el carrito                                    # com.bancaecuador.steps.CompraSteps.verifica_que_hay_2_productos_en_el_carrito(int)
+  And procede al carrito y confirma los productos                                   # com.bancaecuador.steps.CompraSteps.procede_al_carrito_y_confirma_los_productos()
+  And completa el checkout con nombre "Juan", apellido "Cisterna", postal "8320000" # com.bancaecuador.steps.CompraSteps.completa_el_checkout_con_datos_parametrizados(java.lang.String,java.lang.String,java.lang.String)
+  Then debería ver el mensaje "Thank you for your order!"                           # com.bancaecuador.steps.CompraSteps.verifica_mensaje(java.lang.String)
+
+@compra-saucedemo-outline
+Scenario Outline: El usuario realiza una compra exitosa con diferentes datos       # src/test/resources/features/e2e.feature:26
+  Given el usuario inicia sesión en SauceDemo                                      # com.bancaecuador.steps.CompraSteps.el_usuario_inicia_sesion_en_SauceDemo()
+  When ordena los productos por precio de menor a mayor                            # com.bancaecuador.steps.CompraSteps.ordena_los_productos_por_precio_de_menor_a_mayor()
+  And agrega el primer producto al carrito                                         # com.bancaecuador.steps.CompraSteps.agrega_el_primer_producto_al_carrito()
+  And agrega el segundo producto al carrito                                        # com.bancaecuador.steps.CompraSteps.agrega_el_segundo_producto_al_carrito()
+  And verifica que hay 2 productos en el carrito                                   # com.bancaecuador.steps.CompraSteps.verifica_que_hay_2_productos_en_el_carrito(int)
+  And procede al carrito y confirma los productos                                  # com.bancaecuador.steps.CompraSteps.procede_al_carrito_y_confirma_los_productos()
+  And completa el checkout con nombre "María", apellido "García", postal "7500000" # com.bancaecuador.steps.CompraSteps.completa_el_checkout_con_datos_parametrizados(java.lang.String,java.lang.String,java.lang.String)
+  Then debería ver el mensaje "Thank you for your order!"                          # com.bancaecuador.steps.CompraSteps.verifica_mensaje(java.lang.String)
+
+@compra-saucedemo-outline
+Scenario Outline: El usuario realiza una compra exitosa con diferentes datos       # src/test/resources/features/e2e.feature:27
+  Given el usuario inicia sesión en SauceDemo                                      # com.bancaecuador.steps.CompraSteps.el_usuario_inicia_sesion_en_SauceDemo()
+  When ordena los productos por precio de menor a mayor                            # com.bancaecuador.steps.CompraSteps.ordena_los_productos_por_precio_de_menor_a_mayor()
+  And agrega el primer producto al carrito                                         # com.bancaecuador.steps.CompraSteps.agrega_el_primer_producto_al_carrito()
+  And agrega el segundo producto al carrito                                        # com.bancaecuador.steps.CompraSteps.agrega_el_segundo_producto_al_carrito()
+  And verifica que hay 2 productos en el carrito                                   # com.bancaecuador.steps.CompraSteps.verifica_que_hay_2_productos_en_el_carrito(int)
+  And procede al carrito y confirma los productos                                  # com.bancaecuador.steps.CompraSteps.procede_al_carrito_y_confirma_los_productos()
+  And completa el checkout con nombre "Carlos", apellido "López", postal "9000000" # com.bancaecuador.steps.CompraSteps.completa_el_checkout_con_datos_parametrizados(java.lang.String,java.lang.String,java.lang.String)
+  Then debería ver el mensaje "Thank you for your order!"                          # com.bancaecuador.steps.CompraSteps.verifica_mensaje(java.lang.String)
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 55.01 s -- in com.bancaecuador.runners.TestRunners
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.0:jar (default-jar) @ desafio-e2e ---
+[WARNING] JAR will be empty - no content was marked for inclusion!
+[INFO] Building jar: /Users/juancisterna/Documents/e2e-serenity/desafio-e2e/target/desafio-e2e-1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- serenity:4.1.20:aggregate (serenity-reports) @ desafio-e2e ---
+[INFO] GENERATING REPORTS FOR: /Users/juancisterna/Documents/e2e-serenity/desafio-e2e
+[INFO] GENERATING REPORTS USING 16 THREADS
+[INFO] GENERATING SUMMARY REPORTS...
+[INFO] GENERATING REQUIREMENTS REPORTS...
+[INFO] GENERATING RESULT REPORTS...
+[INFO] GENERATING ERROR REPORTS...
+[INFO] Test results for 4 tests generated in 1.1 secs in directory: file:/Users/juancisterna/Documents/e2e-serenity/desafio-e2e/target/site/serenity/
+[INFO] ------------------------------------------------
+[INFO] | SERENITY TESTS:               | SUCCESS
+[INFO] ------------------------------------------------
+[INFO] | Test scenarios executed       | 2
+[INFO] | Total Test cases executed     | 4
+[INFO] | Tests passed                  | 4
+[INFO] | Tests failed                  | 0
+[INFO] | Tests with errors             | 0
+[INFO] | Tests compromised             | 0
+[INFO] | Tests aborted                 | 0
+[INFO] | Tests pending                 | 0
+[INFO] | Tests ignored/skipped         | 0
+[INFO] ------------------------------- | --------------
+[INFO] | Total Duration| 33s 845ms
+[INFO] | Fastest test took| 2s 633ms
+[INFO] | Slowest test took| 5s 395ms
+[INFO] ------------------------------------------------
+[INFO] 
+[INFO] SERENITY REPORTS
+[INFO]   - Full Report: file:///Users/juancisterna/Documents/e2e-serenity/desafio-e2e/target/site/serenity/index.html
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  59.460 s
+[INFO] Finished at: 2026-05-13T12:17:53-04:00
+[INFO] ------------------------------------------------------------------------

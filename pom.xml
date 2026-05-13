@@ -63,6 +63,31 @@
 
     <build>
         <plugins>
+            <!-- Crear carpeta test-results al inicio -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>create-test-results-dir</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <mkdir dir="${project.basedir}/test-results"/>
+                                <mkdir dir="${project.basedir}/test-results/reports"/>
+                                <mkdir dir="${project.basedir}/test-results/output"/>
+                                <mkdir dir="${project.basedir}/test-results/logs"/>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Maven Surefire para ejecutar tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -73,10 +98,15 @@
                     </includes>
                 </configuration>
             </plugin>
+
+            <!-- Serenity para generar reportes -->
             <plugin>
                 <groupId>net.serenity-bdd.maven.plugins</groupId>
                 <artifactId>serenity-maven-plugin</artifactId>
                 <version>${serenity.version}</version>
+                <configuration>
+                    <outputDirectory>test-results/reports</outputDirectory>
+                </configuration>
                 <executions>
                     <execution>
                         <id>serenity-reports</id>
